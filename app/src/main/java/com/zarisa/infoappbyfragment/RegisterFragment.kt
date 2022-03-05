@@ -1,59 +1,91 @@
 package com.zarisa.infoappbyfragment
 
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
+import com.zarisa.infoappbyfragment.databinding.FragmentRegisterBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [RegisterFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+const val fullName="fullName"
+const val userName="userName"
+const val email="email"
+const val password="password"
+const val Gender="gender"
 class RegisterFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
+    lateinit var binding: FragmentRegisterBinding
+    private var infoList= mutableSetOf<EditText>()
+
+    var gender=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false)
+    ): View {
+        binding= FragmentRegisterBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment RegisterFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            RegisterFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initViews()
+    }
+    private fun initViews(){
+        infoList = mutableSetOf(binding.textFieldFullName,binding.textFieldUsername,binding.textFieldEmail,
+            binding.textFieldPassword,binding.textFieldRetypePassword)
+        binding.buttonRegister.setOnClickListener {
+            if (checkInfo()) {
+                val bundle = bundleOf(
+                    fullName to binding.textFieldFullName.text.toString(),
+                    userName to binding.textFieldUsername.text.toString(),
+                    email to binding.textFieldEmail.text.toString(),
+                    password to binding.textFieldPassword.text.toString(),
+                    Gender to gender
+                )
+                findNavController().navigate(R.id.action_registerFragment_to_saveFragment, bundle)
+            }
+        }
+    }
+    private fun checkInfo(): Boolean {
+        var result=true
+        when {
+            binding.radioButtonFemale.isChecked -> gender="Female"
+            binding.radioButtonMale.isChecked -> gender="Male"
+            else -> {
+                Toast.makeText(context, "Enter Gender!", Toast.LENGTH_SHORT).show()
+                result=false
+            }
+        }
+        infoList.forEach{
+            if(it.text.isBlank()) {
+                it.error ="Fill the field!"
+                result= false
+            }
+        }
+        binding.textFieldEmail.text.let{
+            if (it != null) {
+                if (it.isNotBlank()&&!it.toString().isEmailValid()){
+                    binding.textFieldEmail.error="Email invalid!"
+                    result =false
                 }
             }
+        }
+        if(binding.textFieldPassword.text.toString()!=binding.textFieldRetypePassword.text.toString()){
+            binding.textFieldRetypePassword.error="Password do not match!"
+            result=false
+        }
+        return result
+    }
+    private fun String.isEmailValid(): Boolean {
+        return !TextUtils.isEmpty(this) && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
     }
 }
