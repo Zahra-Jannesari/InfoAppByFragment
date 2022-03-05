@@ -1,5 +1,7 @@
 package com.zarisa.infoappbyfragment
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
@@ -19,13 +21,10 @@ const val password="password"
 const val Gender="gender"
 class RegisterFragment : Fragment() {
 
-    lateinit var binding: FragmentRegisterBinding
+    private lateinit var binding: FragmentRegisterBinding
     private var infoList= mutableSetOf<EditText>()
-
-    var gender=""
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private var sharedPreferences: SharedPreferences? = null
+    private var gender=""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,11 +36,17 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedPreferences = this.activity?.getSharedPreferences("Information", Context.MODE_PRIVATE)
         initViews()
     }
     private fun initViews(){
         infoList = mutableSetOf(binding.textFieldFullName,binding.textFieldUsername,binding.textFieldEmail,
             binding.textFieldPassword,binding.textFieldRetypePassword)
+//        infoList.forEach{
+//            it.setText("")
+//        }
+//        if(requireArguments().getBoolean("saved",false))
+//           putDataForEdit()
         binding.buttonRegister.setOnClickListener {
             if (checkInfo()) {
                 val bundle = bundleOf(
@@ -88,4 +93,14 @@ class RegisterFragment : Fragment() {
     private fun String.isEmailValid(): Boolean {
         return !TextUtils.isEmpty(this) && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
     }
+//    private fun putDataForEdit() {
+//        binding.textFieldFullName.setText(sharedPreferences?.getString(fullName,""))
+//        binding.textFieldUsername.setText(sharedPreferences?.getString(userName,""))
+//        binding.textFieldEmail.setText(sharedPreferences?.getString(email,""))
+//        binding.textFieldPassword.setText(sharedPreferences?.getString(password,""))
+//        when(sharedPreferences?.getString(Gender,"")){
+//            "Female"->binding.radioButtonFemale.isChecked=true
+//            "Male"->binding.radioButtonMale.isChecked=true
+//        }
+//    }
 }
