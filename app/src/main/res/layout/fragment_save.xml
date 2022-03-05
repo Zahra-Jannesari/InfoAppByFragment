@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".SaveFragment">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginVertical="48dp">
+
+        <LinearLayout
+            android:id="@+id/LinearLayout_Info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            >
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textView_fullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginVertical="8dp"
+                android:background="@drawable/rounded_for_textview"
+                android:padding="16dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textView_UserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginVertical="8dp"
+                android:background="@drawable/rounded_for_textview"
+                android:padding="16dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textView_Email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginVertical="8dp"
+                android:background="@drawable/rounded_for_textview"
+                android:padding="16dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textView_Password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginVertical="8dp"
+                android:background="@drawable/rounded_for_textview"
+                android:padding="16dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textView_GenderInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginVertical="8dp"
+                android:background="@drawable/rounded_for_textview"
+                android:padding="16dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_HideInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="15dp"
+                android:text="Save"
+                android:textAllCaps="false"
+                app:backgroundTint="#DCE91EB6"
+                app:cornerRadius="100dp" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
