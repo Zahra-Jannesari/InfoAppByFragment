@@ -1,5 +1,6 @@
 package com.zarisa.infoappbyfragment
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -7,19 +8,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
-import com.zarisa.infoappbyfragment.databinding.FragmentRegisterBinding
 import com.zarisa.infoappbyfragment.databinding.FragmentSaveBinding
 
 
 class SaveFragment : Fragment() {
     private var sharedPreferences: SharedPreferences? = null
-    lateinit var binding:FragmentSaveBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private lateinit var binding:FragmentSaveBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,16 +28,17 @@ class SaveFragment : Fragment() {
         initViews()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initViews() {
-        var sentName=requireArguments().getString(fullName)
+        val sentName=requireArguments().getString(fullName)
         binding.textViewFullName.text="Full Name: $sentName"
-        var sentUserName=requireArguments().getString(userName)
+        val sentUserName=requireArguments().getString(userName)
         binding.textViewUserName.text="Username: $sentUserName"
-        var sentEmail=requireArguments().getString(email)
+        val sentEmail=requireArguments().getString(email)
         binding.textViewEmail.text="Email: $sentEmail"
-        var sentPassword=requireArguments().getString(password)
+        val sentPassword=requireArguments().getString(password)
         binding.textViewPassword.text="Password: $sentPassword"
-        var sentGender=requireArguments().getString(Gender)
+        val sentGender=requireArguments().getString(Gender)
         binding.textViewGenderInfo.text="Gender: $sentGender"
 
         val editor = sharedPreferences?.edit()
