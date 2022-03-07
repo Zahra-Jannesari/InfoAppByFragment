@@ -42,11 +42,8 @@ class RegisterFragment : Fragment() {
     private fun initViews(){
         infoList = mutableSetOf(binding.textFieldFullName,binding.textFieldUsername,binding.textFieldEmail,
             binding.textFieldPassword,binding.textFieldRetypePassword)
-//        infoList.forEach{
-//            it.setText("")
-//        }
-//        if(requireArguments().getBoolean("saved",false))
-//           putDataForEdit()
+        if(sharedPreferences?.getString(fullName,"")!="")
+           putDataForEdit()
         binding.buttonRegister.setOnClickListener {
             if (checkInfo()) {
                 val bundle = bundleOf(
@@ -93,14 +90,14 @@ class RegisterFragment : Fragment() {
     private fun String.isEmailValid(): Boolean {
         return !TextUtils.isEmpty(this) && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
     }
-//    private fun putDataForEdit() {
-//        binding.textFieldFullName.setText(sharedPreferences?.getString(fullName,""))
-//        binding.textFieldUsername.setText(sharedPreferences?.getString(userName,""))
-//        binding.textFieldEmail.setText(sharedPreferences?.getString(email,""))
-//        binding.textFieldPassword.setText(sharedPreferences?.getString(password,""))
-//        when(sharedPreferences?.getString(Gender,"")){
-//            "Female"->binding.radioButtonFemale.isChecked=true
-//            "Male"->binding.radioButtonMale.isChecked=true
-//        }
-//    }
+    private fun putDataForEdit() {
+        binding.textFieldFullName.setText(sharedPreferences?.getString(fullName,""))
+        binding.textFieldUsername.setText(sharedPreferences?.getString(userName,""))
+        binding.textFieldEmail.setText(sharedPreferences?.getString(email,""))
+        binding.textFieldPassword.setText(sharedPreferences?.getString(password,""))
+        when(sharedPreferences?.getString(Gender,"")){
+            "Female"->binding.radioButtonFemale.isChecked=true
+            "Male"->binding.radioButtonMale.isChecked=true
+        }
+    }
 }
