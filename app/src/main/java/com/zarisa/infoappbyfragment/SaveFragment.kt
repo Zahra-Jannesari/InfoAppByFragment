@@ -10,17 +10,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.zarisa.infoappbyfragment.databinding.FragmentSaveBinding
 
 
 class SaveFragment : Fragment() {
     private var sharedPreferences: SharedPreferences? = null
     private lateinit var binding:FragmentSaveBinding
+    private val args:SaveFragmentArgs by navArgs()
+    private lateinit var info:InfoDataClass
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding= FragmentSaveBinding.inflate(layoutInflater, container, false)
+        info=args.userInfo
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,15 +35,15 @@ class SaveFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun initViews() {
-        val sentName=requireArguments().getString(fullName)
+        val sentName=info.name
         binding.textViewFullName.text="Full Name: $sentName"
-        val sentUserName=requireArguments().getString(userName)
+        val sentUserName=info.userName
         binding.textViewUserName.text="Username: $sentUserName"
-        val sentEmail=requireArguments().getString(email)
+        val sentEmail=info.Email
         binding.textViewEmail.text="Email: $sentEmail"
-        val sentPassword=requireArguments().getString(password)
+        val sentPassword=info.password
         binding.textViewPassword.text="Password: $sentPassword"
-        val sentGender=requireArguments().getString(Gender)
+        val sentGender=info.gender
         binding.textViewGenderInfo.text="Gender: $sentGender"
 
         val editor = sharedPreferences?.edit()

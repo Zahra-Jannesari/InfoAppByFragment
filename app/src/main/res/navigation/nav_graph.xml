@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_saveFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <argument
+            android:name="userInfo"
+            app:argType="com.zarisa.infoappbyfragment.InfoDataClass" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -22,5 +25,9 @@
         <action
             android:id="@+id/action_registerFragment_to_saveFragment"
             app:destination="@id/saveFragment" />
+        <argument
+            android:name="myArg"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>

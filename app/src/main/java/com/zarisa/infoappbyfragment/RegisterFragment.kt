@@ -46,14 +46,19 @@ class RegisterFragment : Fragment() {
            putDataForEdit()
         binding.buttonRegister.setOnClickListener {
             if (checkInfo()) {
-                val bundle = bundleOf(
-                    fullName to binding.textFieldFullName.text.toString(),
-                    userName to binding.textFieldUsername.text.toString(),
-                    email to binding.textFieldEmail.text.toString(),
-                    password to binding.textFieldPassword.text.toString(),
-                    Gender to gender
-                )
-                findNavController().navigate(R.id.action_registerFragment_to_saveFragment, bundle)
+//                val bundle = bundleOf(
+//                    fullName to binding.textFieldFullName.text.toString(),
+//                    userName to binding.textFieldUsername.text.toString(),
+//                    email to binding.textFieldEmail.text.toString(),
+//                    password to binding.textFieldPassword.text.toString(),
+//                    Gender to gender
+//                )
+
+                var userInfo=InfoDataClass(binding.textFieldFullName.text.toString(),
+                    binding.textFieldUsername.text.toString(),binding.textFieldEmail.text.toString(),
+                    binding.textFieldPassword.text.toString(),gender)
+                val directions=RegisterFragmentDirections.actionRegisterFragmentToSaveFragment(userInfo)
+                findNavController().navigate(directions)
             }
         }
     }
