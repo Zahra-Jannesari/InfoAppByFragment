@@ -25,9 +25,5 @@
         <action
             android:id="@+id/action_registerFragment_to_saveFragment"
             app:destination="@id/saveFragment" />
-        <argument
-            android:name="myArg"
-            app:argType="integer"
-            android:defaultValue="0" />
     </fragment>
 </navigation>
